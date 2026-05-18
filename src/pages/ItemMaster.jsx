@@ -8,19 +8,20 @@ import { useToast } from '../components/Toast'
 import ConfirmDialog from '../components/ConfirmDialog'
 
 // ── API helper ─────────────────────────────────────────────────────
+const BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 const api = {
-  get: (url) => fetch(url).then(r => r.json()),
-  post: (url, data) => fetch(url, {
+  get: (url) => fetch(`${BASE}${url}`).then(r => r.json()),
+  post: (url, data) => fetch(`${BASE}${url}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   }).then(r => r.json()),
-  put: (url, data) => fetch(url, {
+  put: (url, data) => fetch(`${BASE}${url}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   }).then(r => r.json()),
-  del: (url) => fetch(url, { method: 'DELETE' }).then(r => r.json()),
+  del: (url) => fetch(`${BASE}${url}`, { method: 'DELETE' }).then(r => r.json()),
 }
 
 // ── Shared UI primitives ─────────────────────────────────────────
@@ -854,7 +855,7 @@ function CreateView({ onBack, editItem, dropdowns, dropdownsLoading, onSaved }) 
     const controller = new AbortController()
     const timer = setTimeout(() => {
       setPartNoGenerating(true)
-      fetch(`/api/part-number-base/preview?prefix=${encodeURIComponent(group.prefix)}`, {
+      fetch(`${BASE}/api/part-number-base/preview?prefix=${encodeURIComponent(group.prefix)}`, {
         signal: controller.signal,
       })
         .then(r => r.json())
@@ -915,7 +916,7 @@ function CreateView({ onBack, editItem, dropdowns, dropdownsLoading, onSaved }) 
         if (imageFile) fd.append('image', imageFile)
         if (pdfFile)   fd.append('pdf',   pdfFile)
         fd.append('updatedBy', 'ADMIN')
-        const upJson = await fetch(`/api/item-master/${itemId}/upload`, {
+        const upJson = await fetch(`${BASE}/api/item-master/${itemId}/upload`, {
           method: 'POST', body: fd,
         }).then(r => r.json())
         if (!upJson.success) console.warn('[ItemMaster] upload warning:', upJson.message)
