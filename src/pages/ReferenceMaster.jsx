@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import axios from 'axios'
+import axios from '../api'
 import { ChevronRight, ChevronDown, Search, Save, Edit2, Trash2, X, FileSpreadsheet, ChevronUp, Plus, Loader2 } from 'lucide-react'
 import { useToast } from '../components/Toast'
 import ConfirmDialog from '../components/ConfirmDialog'

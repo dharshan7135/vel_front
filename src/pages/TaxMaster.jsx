@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import axios from '../api'
 import { X, Save, Edit, Trash2, Info, ChevronRight, Loader2 } from 'lucide-react'
 import { useToast } from '../components/Toast'
 
