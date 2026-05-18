@@ -8,7 +8,7 @@ import { useToast } from '../components/Toast'
 import ConfirmDialog from '../components/ConfirmDialog'
 
 // ── API helper ─────────────────────────────────────────────────────
-const BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+const BASE = import.meta.env.VITE_API_URL || 'https://vel-back.onrender.com'
 const api = {
   get: (url) => fetch(`${BASE}${url}`).then(r => r.json()),
   post: (url, data) => fetch(`${BASE}${url}`, {
